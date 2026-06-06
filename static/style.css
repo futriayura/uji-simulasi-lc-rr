@@ -1,0 +1,115 @@
+/* =========================
+   GLOBAL
+========================= */
+
+body {
+    background-color: #000000;
+    font-family: Arial, sans-serif;
+    color: #ffb6d5;
+}
+
+/* =========================
+   PAKSA SEMUA TEKS PINK
+========================= */
+
+h1, h2, h3, h4, h5, h6,
+p, span, strong, small,
+label, li, a, div {
+    color: #ffb6d5 !important;
+}
+
+/* =========================
+   JUDUL UTAMA (FIX UTAMA)
+========================= */
+
+.app-title,
+.title,
+h1 {
+    color: #ffb6d5 !important;
+}
+
+/* =========================
+   BACKGROUND HITAM TOTAL
+========================= */
+
+.container,
+.card,
+.server-card,
+.queue-box,
+.log-box,
+.alert {
+    background-color: #000000 !important;
+}
+
+/* =========================
+   NAV TABS
+========================= */
+
+.nav-tabs {
+    border-bottom: 1px solid #ff69b4;
+}
+
+.nav-tabs .nav-link {
+    background-color: #000000 !important;
+    border: 1px solid #ff69b4;
+    color: #ffb6d5 !important;
+    margin-right: 6px;
+    border-radius: 10px 10px 0 0;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #000000 !important;
+    color: #ff69b4 !important;
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.progress {
+    background-color: #111;
+    height: 10px;
+    border-radius: 10px;
+}
+
+.progress-bar {
+    background-color: #ff69b4;
+}
+
+/* =========================
+   QUEUE & BADGE
+========================= */
+
+.badge-request {
+    background-color: #000000 !important;
+    border: 1px solid #ff69b4;
+    color: #ffb6d5 !important;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn {
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.btn-success,
+.btn-primary,
+.btn-warning,
+.btn-danger,
+.btn-secondary {
+    background-color: #000000 !important;
+    border: 1px solid #ff69b4 !important;
+    color: #ffb6d5 !important;
+}
+
+/* =========================
+   HOVER EFFECT
+========================= */
+
+.server-card:hover {
+    border-color: #ff69b4;
+    transition: 0.2s;
+}

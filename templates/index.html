@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Simulasi Antrian Restoran</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container py-4">
+
+    <h2 class="mb-4 text-center">
+        🍽️ Simulasi Antrian Restoran
+    </h2>
+
+    <p class="text-center text-muted mb-4">
+        
+        <strong>Round Robin</strong> 
+        <strong> dan </strong>
+        <strong>Least Connection</strong>
+    </p>
+
+    <!-- TAB MENU -->
+
+    <ul class="nav nav-tabs">
+
+        <li class="nav-item">
+            <button class="nav-link active"
+                    data-bs-toggle="tab"
+                    data-bs-target="#rr">
+
+                Round Robin
+
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="nav-link"
+                    data-bs-toggle="tab"
+                    data-bs-target="#lc">
+
+                Least Connection
+
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="nav-link"
+                    data-bs-toggle="tab"
+                    data-bs-target="#compare">
+
+                Perbandingan
+
+            </button>
+        </li>
+
+    </ul>
+
+    <div class="tab-content mt-4">
+
+        <!-- ========================= -->
+        <!-- ROUND ROBIN -->
+        <!-- ========================= -->
+
+        <div class="tab-pane fade show active"
+             id="rr">
+
+            <div class="alert alert-warning">
+
+                <strong>Round Robin:</strong><br>
+
+                Pelanggan baru ditempatkan
+                secara bergiliran ke meja berikutnya.
+
+                <br><br>
+
+                Urutan meja:
+
+                <strong>
+                    Meja A → Meja B → Meja C → A → B → C
+                </strong>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-8">
+
+                    <h4>🍽️ Meja Restoran</h4>
+
+                    <div id="rrServers"></div>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+
+                            <h5>Statistik</h5>
+
+                            <p>
+                                Total Pelanggan:
+                                <strong id="rrDispatch">0</strong>
+                            </p>
+
+                            <p>
+                                Selisih Beban:
+                                <strong id="rrDiff">0</strong>
+                            </p>
+
+                            <p>
+                                Antrian:
+                                <strong id="rrQueueCount">0</strong>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <h5>
+                        👥 Antrian Pelanggan
+                    </h5>
+
+                    <div class="queue-box"
+                         id="rrQueue">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div class="mt-3">
+
+                <button class="btn btn-success"
+                        onclick="rrAdd()">
+
+                    + Tambah 5 Pelanggan
+
+                </button>
+
+                <button class="btn btn-primary"
+                        onclick="rrDispatch()">
+
+                    Tempatkan 1 Pelanggan
+
+                </button>
+
+                <button class="btn btn-warning"
+                        id="rrAutoBtn"
+                        onclick="rrAuto()">
+
+                    Auto
+
+                </button>
+
+                <button class="btn btn-danger"
+                        onclick="rrReset()">
+
+                    Reset
+
+                </button>
+
+            </div>
+
+            <hr>
+
+            <h5>
+                📋 Log Aktivitas Restoran
+            </h5>
+
+            <div class="log-box"
+                 id="rrLogs">
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- LEAST CONNECTION -->
+        <!-- ========================= -->
+
+        <div class="tab-pane fade"
+             id="lc">
+
+            <div class="alert alert-success">
+
+                <strong>Least Connection:</strong><br>
+
+                Pelanggan baru diarahkan
+                ke meja dengan jumlah pelanggan aktif
+                paling sedikit.
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-8">
+
+                    <h4>
+                        🍽️ Meja Restoran
+                    </h4>
+
+                    <div id="lcServers"></div>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+
+                            <h5>Statistik</h5>
+
+                            <p>
+                                Total Pelanggan:
+                                <strong id="lcDispatch">0</strong>
+                            </p>
+
+                            <p>
+                                Selisih Beban:
+                                <strong id="lcDiff">0</strong>
+                            </p>
+
+                            <p>
+                                Antrian:
+                                <strong id="lcQueueCount">0</strong>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <h5>
+                        👥 Antrian Pelanggan
+                    </h5>
+
+                    <div class="queue-box"
+                         id="lcQueue">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div class="mt-3">
+
+                <button class="btn btn-success"
+                        onclick="lcAdd()">
+
+                    + Tambah 5 Pelanggan
+
+                </button>
+
+                <button class="btn btn-primary"
+                        onclick="lcDispatch()">
+
+                    Tempatkan 1 Pelanggan
+
+                </button>
+
+                <button class="btn btn-warning"
+                        id="lcAutoBtn"
+                        onclick="lcAuto()">
+
+                    Auto
+
+                </button>
+
+                <button class="btn btn-secondary"
+                        onclick="lcComplete()">
+
+                    Pelanggan Selesai Makan
+
+                </button>
+
+                <button class="btn btn-danger"
+                        onclick="lcReset()">
+
+                    Reset
+
+                </button>
+
+            </div>
+
+            <hr>
+
+            <h5>
+                📋 Log Aktivitas Restoran
+            </h5>
+
+            <div class="log-box"
+                 id="lcLogs">
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- PERBANDINGAN -->
+        <!-- ========================= -->
+
+        <div class="tab-pane fade"
+             id="compare">
+
+            <div class="alert alert-info">
+
+                Jalankan skenario yang sama
+                untuk melihat perbedaan pembagian
+                pelanggan pada kedua algoritma.
+
+            </div>
+
+            <button class="btn btn-primary mb-3"
+                    onclick="runComparison()">
+
+                ▶ Jalankan Simulasi 15 Pelanggan
+
+            </button>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <h4>Round Robin</h4>
+
+                    <div id="compareRR"></div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h4>Least Connection</h4>
+
+                    <div id="compareLC"></div>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <h5>
+                📋 Log Perbandingan
+            </h5>
+
+            <div class="log-box"
+                 id="compareLogs">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

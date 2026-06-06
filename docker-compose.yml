@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  simulator-restoran:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: simulator-antrian-restoran
+
+    ports:
+      - "5000:5000"
+
+    restart: unless-stopped
+
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: production
+
+    volumes:
+      - .:/app
